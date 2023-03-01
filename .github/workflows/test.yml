@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: golangci-lint
+        uses: reviewdog/action-golangci-lint@v1
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.19.x'
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Test
+        run: go test ./internal/user/repository/ && go test ./internal/user/usecase/
