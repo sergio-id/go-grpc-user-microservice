@@ -41,13 +41,18 @@ migrate_down:
 # ==============================================================================
 # Docker compose commands
 
-up:
-	@echo Clearing prometheus data
-	rm -rf ./prometheus
-	@echo Starting local docker compose
+local_up:
+	@echo Starting local docker compose without user service container
+	docker-compose -f docker-compose-local.yml up --build
+
+local_down:
+	docker-compose -f docker-compose-local.yml down
+
+docker_up:
+	@echo Starting local docker compose with .env all containers
 	docker-compose -f docker-compose.yml --env-file=./.env up --build
 
-down:
+docker_down:
 	docker-compose -f docker-compose.yml down
 
 
