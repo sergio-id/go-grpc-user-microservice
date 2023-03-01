@@ -1,0 +1,42 @@
+# Description: Configuration file for user service application (user_service)
+serviceName: user_service
+grpc:
+  port: :5001
+  development: true
+logger:
+  level: info
+  console: false
+postgres:
+  host: localhost
+  port: 5432
+  user: postgres
+  password: postgres
+  dbName: user
+  pgDriverName: pgx
+redis:
+  addr: "localhost:6379"
+  password: ""
+  db: 0
+  poolSize: 200
+  minIdleConns: 200
+  poolTimeout: 5
+jaeger:
+  enable: true
+  serviceName: user_service
+  hostPort: "localhost:6831"
+  logSpans: false
+probes:
+  readinessPath: /ready
+  livenessPath: /live
+  port: :3001
+  prometheusPath: /metrics
+  prometheusPort: :8001
+  checkIntervalSeconds: 10
+migrations:
+  enable: true
+  recreate: false
+  sourceURL: "file://migrations"
+  dbURL: "postgres://postgres:postgres@localhost:5432/user?sslmode=disable"
+timeouts:
+  postgresInitMilliseconds: 1000
+  postgresInitRetryCount: 10
