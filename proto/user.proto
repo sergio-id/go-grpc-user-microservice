@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package userService;
+option go_package = ".;proto";
+
+service UserService{
+  rpc Create(CreateRequest) returns (CreateReply) {}
+  rpc Update(UpdateRequest) returns (UpdateReply) {}
+  rpc Delete(DeleteRequest) returns (DeleteReply) {}
+  rpc GetByID(GetByIDRequest) returns (GetByIDReply) {}
+}
+
+message User {
+  uint64 id = 1;
+  string email = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string about = 5;
+  string phone_number = 6;
+  string gender = 7;
+  string status = 8;
+  string last_ip = 9;
+  string last_device = 10;
+  string avatar_url = 11;
+  google.protobuf.Timestamp updated_at = 12;
+  google.protobuf.Timestamp created_at = 13;
+}
+
+message CreateRequest {
+  string email = 1;
+  string password = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string about = 5;
+  string phone_number = 6;
+  string gender = 7;
+  string status = 8;
+  string last_ip = 9;
+  string last_device = 10;
+  string avatar_url = 11;
+}
+
+message CreateReply {
+  User user = 1;
+}
+
+message UpdateRequest {
+  uint64 id = 1;
+  string password = 2;
+  string first_name = 3;
+  string last_name = 4;
+  string about = 5;
+  string phone_number = 6;
+  string gender = 7;
+  string status = 8;
+  string last_ip = 9;
+  string last_device = 10;
+  string avatar_url = 11;
+}
+
+message UpdateReply {
+  User user = 1;
+}
+
+message DeleteRequest {
+  uint64 id = 1;
+}
+
+message DeleteReply {}
+
+message GetByIDRequest {
+  uint64 id = 1;
+}
+
+message GetByIDReply {
+  User user = 1;
+}
